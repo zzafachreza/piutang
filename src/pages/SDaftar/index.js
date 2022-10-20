@@ -38,7 +38,7 @@ export default function SDaftar({ navigation, route }) {
 
     const sendServer = () => {
         console.log(kirim);
-        // setLoading(true);
+        setLoading(true);
         setTimeout(() => {
             axios.post(apiURL + 'add2.php', kirim).then(res => {
                 console.log(res.data);

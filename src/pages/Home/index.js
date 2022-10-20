@@ -15,10 +15,10 @@ import 'intl';
 import 'intl/locale-data/jsonp/en';
 
 export default function Home({ navigation }) {
-  const isFocused = useIsFocused();
+
   const [user, setUser] = useState({});
   const [data, setData] = useState([]);
-
+  const isFocused = useIsFocused();
   useEffect(() => {
     if (isFocused) {
       __getTransaction();
@@ -82,6 +82,13 @@ export default function Home({ navigation }) {
   }
 
 
+  const filterItems = (key, data) => {
+    var query = key.toLowerCase();
+    return data.filter(function (item) {
+      return item.toLowerCase().indexOf(query) >= 0;
+    })
+  }
+
 
 
   return (
@@ -136,7 +143,16 @@ export default function Home({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        <MyInput placeholder="Pencarian data" />
+        <MyInput placeholder="Pencarian data" onChangeText={x => {
+          console.log('jumlah huruf', x.length);
+          const cekk = data.filter(i => i.nama_peminjam.toString().toLowerCase() == x.toString().toLowerCase());
+          if (cekk.length > 0) {
+            setData(cekk);
+          } else if (x.length == 0) {
+            __getTransaction();
+          }
+
+        }} />
 
       </View>
 
