@@ -8,6 +8,9 @@ import STentang from './STentang';
 import SHasil from './SHasil';
 import SDaftar from './SDaftar';
 import SAdd from './SAdd';
+import SHutang from './SHutang';
+
+
 
 
 
@@ -23,6 +26,7 @@ import SAdd from './SAdd';
 export {
   Splash,
   Home,
+  SHutang,
   SCek,
   SPenyakit,
   STentang,

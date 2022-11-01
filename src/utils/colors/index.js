@@ -8,6 +8,6 @@ export const colors = {
   danger: '#dc3545',
   black: 'black',
   white: 'white',
-  border: '#D9D9D9',
+  border: '#A9A9A9',
   zavalabs: '#EFEFEF'
 };

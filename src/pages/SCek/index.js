@@ -19,11 +19,14 @@ export default function SCek({ navigation, route }) {
     const item = route.params;
     const [data, setData] = useState([]);
     const [sisa, setSisa] = useState(0);
+    const [datah, setDataH] = useState({});
+    const [total_hutang, setTotal_hutang] = useState(route.params.total);
 
     const isFocused = useIsFocused();
     useEffect(() => {
         if (isFocused) {
             __getTransaction();
+            __getTransactionHeader();
         }
 
     }, [isFocused]);
@@ -33,14 +36,16 @@ export default function SCek({ navigation, route }) {
         axios.post(apiURL + 'data2.php', {
             kode: route.params.kode
         }).then(rz => {
-            console.log(rz.data);
-            let sis = 0;
-            rz.data.map(i => {
-                sis += parseFloat(i.total_bayar)
-            });
-
-            setSisa(sis);
             setData(rz.data)
+        })
+    }
+
+    const __getTransactionHeader = () => {
+        axios.post(apiURL + 'data_piutang.php', {
+            kode: route.params.kode
+        }).then(rz => {
+            console.log(rz.data)
+            setDataH(rz.data)
         })
     }
 
@@ -58,6 +63,18 @@ export default function SCek({ navigation, route }) {
                     flex: 1,
                 }}>
                     <Text style={{
+                        justifyContent: 'flex-end',
+                        fontFamily: fonts.secondary[400],
+                        fontSize: windowWidth / 35,
+                        backgroundColor: colors.black,
+                        color: colors.white,
+                        textAlign: 'center',
+                        borderRadius: 10,
+                        paddingHorizontal: 5,
+                        paddingVertical: 2,
+                        width: 100,
+                    }}>{item.jenis == "CR" ? "Bayar" : "Tambah Hutang"}</Text>
+                    <Text style={{
                         fontFamily: fonts.secondary[600],
                         fontSize: windowWidth / 28
                     }}>{item.keterangan}</Text>
@@ -70,6 +87,7 @@ export default function SCek({ navigation, route }) {
                         fontSize: windowWidth / 28,
                         color: colors.primary,
                     }}>{item.tipe}</Text>
+
                 </View>
                 <View style={{
                     flex: 1,
@@ -88,7 +106,7 @@ export default function SCek({ navigation, route }) {
                 }}>
                     <Icon type='ionicon' name='search' size={windowWidth / 25} color={colors.primary} />
                 </View>
-            </TouchableOpacity>
+            </TouchableOpacity >
         )
     }
 
@@ -167,7 +185,7 @@ export default function SCek({ navigation, route }) {
                         fontFamily: fonts.secondary[600],
                         fontSize: windowWidth / 22,
                         color: colors.white,
-                    }}>Rp. {new Intl.NumberFormat().format(item.total)}</Text>
+                    }}>Rp. {new Intl.NumberFormat().format(datah.total)}</Text>
                 </View>
                 <View style={{
                     flex: 1,
@@ -183,7 +201,7 @@ export default function SCek({ navigation, route }) {
                         fontFamily: fonts.secondary[600],
                         fontSize: windowWidth / 22,
                         color: colors.white,
-                    }}>Rp. {new Intl.NumberFormat().format(sisa)}</Text>
+                    }}>Rp. {new Intl.NumberFormat().format(datah.bayar)}</Text>
                 </View>
                 <View style={{
                     flex: 1,
@@ -199,7 +217,7 @@ export default function SCek({ navigation, route }) {
                         fontFamily: fonts.secondary[600],
                         fontSize: windowWidth / 22,
                         color: colors.white,
-                    }}>Rp. {new Intl.NumberFormat().format(item.total - sisa)}</Text>
+                    }}>Rp. {new Intl.NumberFormat().format(datah.sisa)}</Text>
                 </View>
 
 
@@ -208,13 +226,23 @@ export default function SCek({ navigation, route }) {
 
             <FlatList data={data} renderItem={__renderItem} />
 
-            <FloatingAction
 
-                showBackground={false}
-
-                onPressMain={x => navigation.navigate('SDaftar', item)}
-
-            />
+            <View style={{
+                flexDirection: 'row'
+            }}>
+                <View style={{
+                    flex: 1,
+                    padding: 10,
+                }}>
+                    <MyButton onPress={() => navigation.navigate('SHutang', item)} Icons="duplicate-outline" title="Tambah Hutang" warna={colors.primary} />
+                </View>
+                <View style={{
+                    flex: 1,
+                    padding: 10,
+                }}>
+                    <MyButton onPress={() => navigation.navigate('SDaftar', item)} Icons="shield-checkmark-outline" title="Bayar Hutang" warna={colors.success} />
+                </View>
+            </View>
 
         </SafeAreaView>
     )

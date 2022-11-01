@@ -12,6 +12,7 @@ import {
   SHasil,
   SDaftar,
   SAdd,
+  SHutang,
 } from '../pages';
 import { colors } from '../utils';
 
@@ -73,7 +74,19 @@ export default function Router() {
         component={SDaftar}
         options={{
           headerShown: true,
-          headerTitle: 'Tambahkan Cicilan Pembayaran',
+          headerTitle: 'Tambah Bayar Hutang',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+      <Stack.Screen
+        name="SHutang"
+        component={SHutang}
+        options={{
+          headerShown: true,
+          headerTitle: 'Tambahkan Hutang Baru',
           headerStyle: {
             backgroundColor: colors.primary,
           },
