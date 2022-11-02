@@ -59,18 +59,58 @@ export default function Home({ navigation }) {
             fontFamily: fonts.secondary[400],
             fontSize: windowWidth / 28
           }}>{item.tanggal}</Text>
+          <View style={{
+            flexDirection: 'row',
+            paddingVertical: 10,
+          }}>
+            <View style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <Text style={{
+                fontFamily: fonts.secondary[600],
+                fontSize: windowWidth / 40,
+                color: colors.primary,
+              }}>Jumlah Hutang</Text>
+              <Text style={{
+                fontFamily: fonts.secondary[600],
+                fontSize: windowWidth / 30
+              }}>Rp {new Intl.NumberFormat().format(item.total)}</Text>
+            </View>
+            <View style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <Text style={{
+                fontFamily: fonts.secondary[600],
+                fontSize: windowWidth / 40,
+                color: colors.primary,
+              }}>Sudah Bayar</Text>
+              <Text style={{
+                fontFamily: fonts.secondary[600],
+                fontSize: windowWidth / 30
+              }}>Rp {new Intl.NumberFormat().format(item.bayar)}</Text>
+            </View>
+            <View style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <Text style={{
+                fontFamily: fonts.secondary[600],
+                fontSize: windowWidth / 40,
+                color: colors.primary,
+              }}>Sisa Piutang</Text>
+              <Text style={{
+                fontFamily: fonts.secondary[600],
+                fontSize: windowWidth / 30
+              }}>Rp {new Intl.NumberFormat().format(item.sisa)}</Text>
+            </View>
+          </View>
         </View>
-        <View style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
 
-          <Text style={{
-            fontFamily: fonts.secondary[600],
-            fontSize: windowWidth / 20
-          }}>Rp {new Intl.NumberFormat().format(item.total)}</Text>
-        </View>
         <View style={{
           justifyContent: 'center',
           alignItems: 'center'

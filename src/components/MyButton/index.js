@@ -19,11 +19,11 @@ export default function MyButton({
     <TouchableOpacity
       style={styles(warna, radius, borderSize, borderColor).btn}
       onPress={onPress}>
-      <Icon type="ionicon" name={Icons} color={iconColor} size={windowWidth / 28} />
+      <Icon type="ionicon" name={Icons} color={iconColor} size={windowWidth / 35} />
       <Text
         style={{
           color: colorText,
-          fontSize: windowWidth / 28,
+          fontSize: windowWidth / 35,
           left: 5,
           fontFamily: fonts.primary[600],
           // fontWeight: fontWeight,

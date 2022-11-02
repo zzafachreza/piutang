@@ -74,9 +74,14 @@ export default function SHasil({ navigation, route }) {
                         text: 'Hapus',
                         onPress: () => {
 
+                            console.log(item)
                             axios.post(apiURL + 'delete_detail.php', {
-                                id_bayar: item.id
+                                id_bayar: item.id,
+                                kode: item.kode,
+                                total_bayar: item.total_bayar,
+                                jenis: item.jenis
                             }).then(res => {
+                                console.log(res.data)
                                 navigation.goBack();
                             })
                         }
