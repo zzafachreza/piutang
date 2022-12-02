@@ -26,6 +26,11 @@ export default function Home({ navigation }) {
 
   }, [isFocused]);
 
+  const [total, setTotal] = useState({
+    total_hutang: 0,
+    total_bayar: 0,
+    total_sisa: 0,
+  })
   const __getTransaction = () => {
     getData('user').then(res => {
       setUser(res);
@@ -34,6 +39,21 @@ export default function Home({ navigation }) {
       }).then(x => {
         console.log(x.data);
         setData(x.data);
+
+        let tmptotal = 0;
+        let tmpbayar = 0;
+        let tmpsisa = 0;
+        x.data.map(i => {
+          tmptotal += parseFloat(i.total);
+          tmpbayar += parseFloat(i.bayar);
+          tmpsisa += parseFloat(i.sisa);
+        })
+
+        setTotal({
+          total_hutang: tmptotal,
+          total_bayar: tmpbayar,
+          total_sisa: tmpsisa
+        })
       })
     })
   }
@@ -205,13 +225,72 @@ export default function Home({ navigation }) {
 
 
 
-      <FloatingAction
 
-        showBackground={false}
 
-        onPressMain={x => navigation.navigate('SAdd')}
+      <View style={{
+        borderTopWidth: 1,
+        borderTopColor: colors.border,
+        backgroundColor: colors.primary,
+        padding: 10,
+        flexDirection: 'row'
+      }} >
+        <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <Text style={{
+            fontFamily: fonts.secondary[400],
+            fontSize: windowWidth / 30,
+            color: colors.secondary
+          }}>Total Hutang</Text>
+          <Text style={{
+            fontFamily: fonts.secondary[600],
+            fontSize: windowWidth / 30,
+            color: colors.white
+          }}>Rp {new Intl.NumberFormat().format(total.total_hutang)}</Text>
+        </View>
 
-      />
+        <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <Text style={{
+            fontFamily: fonts.secondary[400],
+            fontSize: windowWidth / 30,
+            color: colors.secondary
+          }}>Total Bayar</Text>
+          <Text style={{
+            fontFamily: fonts.secondary[600],
+            fontSize: windowWidth / 30,
+            color: colors.white
+          }}>Rp {new Intl.NumberFormat().format(total.total_bayar)}</Text>
+        </View>
+
+        <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <Text style={{
+            fontFamily: fonts.secondary[400],
+            fontSize: windowWidth / 30,
+            color: colors.secondary
+          }}>Total Sisa Piutang</Text>
+          <Text style={{
+            fontFamily: fonts.secondary[600],
+            fontSize: windowWidth / 30,
+            color: colors.white
+          }}>Rp {new Intl.NumberFormat().format(total.total_sisa)}</Text>
+        </View>
+      </View>
+
+      <View style={{
+        padding: 10,
+      }}>
+        <MyButton onPress={() => navigation.navigate('SAdd')} title="Tambah Baru" warna={colors.primary} />
+      </View>
 
     </SafeAreaView >
   )

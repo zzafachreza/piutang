@@ -20,6 +20,7 @@ export default function SCek({ navigation, route }) {
     const item = route.params;
     const [data, setData] = useState([]);
     const [sisa, setSisa] = useState(0);
+    const [print, setPrint] = useState(false);
     const [datah, setDataH] = useState({
         total: 0,
         bayar: 0,
@@ -37,10 +38,6 @@ export default function SCek({ navigation, route }) {
             __getTransactionHeader();
         }
 
-        ref.current.capture().then(uri => {
-            console.log("do something with ", uri);
-            setMyShare(uri);
-        });
 
     }, [isFocused]);
 
@@ -173,15 +170,25 @@ export default function SCek({ navigation, route }) {
                     <TouchableOpacity onPress={() => {
 
 
-                        Share.open({
-                            url: myshare
-                        })
-                            .then((res) => {
-                                console.log(res);
-                            })
-                            .catch((err) => {
-                                err && console.log(err);
+                        try {
+                            setPrint(false);
+                        } finally {
+                            ref.current.capture().then(uri => {
+                                console.log("do something with ", uri);
+                                Share.open({
+                                    url: uri
+                                })
+                                    .then((res) => {
+                                        console.log(res);
+                                    })
+                                    .catch((err) => {
+                                        err && console.log(err);
+                                    });
                             });
+                        }
+
+
+
                     }} style={{
                         padding: 10,
                         backgroundColor: colors.success,
@@ -200,7 +207,7 @@ export default function SCek({ navigation, route }) {
                 }} ref={ref} options={{ fileName: "Your-File-Name", format: "jpg", quality: 0.9 }}>
                     <View style={{
                         flexDirection: 'row',
-                        backgroundColor: colors.primary,
+                        backgroundColor: print ? colors.danger : colors.primary,
                         padding: 10,
                     }}>
                         <View style={{
