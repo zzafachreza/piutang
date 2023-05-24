@@ -13,6 +13,8 @@ import axios from 'axios';
 import { FloatingAction } from "react-native-floating-action";
 import 'intl';
 import 'intl/locale-data/jsonp/en';
+import DatePicker from 'react-native-datepicker'
+import moment from 'moment';
 
 export default function Home({ navigation }) {
 
@@ -58,6 +60,40 @@ export default function Home({ navigation }) {
     })
   }
 
+  const [tanggal, setTanggal] = useState({
+    awal: moment().format('YYYY-MM-DD'),
+    akhir: moment().format('YYYY-MM-DD'),
+  })
+
+  const __getTransactionFilter = () => {
+    getData('user').then(res => {
+      setUser(res);
+      axios.post(apiURL + 'data.php', {
+        id_user: res.id,
+        awal: tanggal.awal,
+        akhir: tanggal.akhir
+      }).then(x => {
+        console.log(x.data);
+        setData(x.data);
+
+        let tmptotal = 0;
+        let tmpbayar = 0;
+        let tmpsisa = 0;
+        x.data.map(i => {
+          tmptotal += parseFloat(i.total);
+          tmpbayar += parseFloat(i.bayar);
+          tmpsisa += parseFloat(i.sisa);
+        })
+
+        setTotal({
+          total_hutang: tmptotal,
+          total_bayar: tmpbayar,
+          total_sisa: tmpsisa
+        })
+      })
+    })
+  }
+
   const __renderItem = ({ item }) => {
     return (
       <TouchableOpacity onPress={() => navigation.navigate('SCek', item)} style={{
@@ -78,7 +114,7 @@ export default function Home({ navigation }) {
           <Text style={{
             fontFamily: fonts.secondary[400],
             fontSize: windowWidth / 28
-          }}>{item.tanggal}</Text>
+          }}>{moment(item.tanggal).format('dddd, DD MMM YYYY')}</Text>
           <View style={{
             flexDirection: 'row',
             paddingVertical: 10,
@@ -205,7 +241,7 @@ export default function Home({ navigation }) {
 
         <MyInput placeholder="Pencarian data" onChangeText={x => {
           console.log('jumlah huruf', x.length);
-          const cekk = data.filter(i => i.nama_peminjam.toString().toLowerCase() == x.toString().toLowerCase());
+          const cekk = data.filter(i => i.nama_peminjam.toString().toLowerCase().indexOf(x.toString().toLowerCase()) > -1);
           if (cekk.length > 0) {
             setData(cekk);
           } else if (x.length == 0) {
@@ -216,8 +252,94 @@ export default function Home({ navigation }) {
 
       </View>
 
+      <View style={{
+        flexDirection: 'row',
+        margin: 10
+      }}>
+        <View style={{
+          flex: 1,
+          paddingRight: 5,
+        }}>
+          <DatePicker
+            style={{ width: '100%', }}
+            date={tanggal.awal}
+            mode="date"
+            placeholder="select date"
+            format="YYYY-MM-DD"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                position: 'absolute',
+                left: 0,
+                top: 4,
+                marginLeft: 0
+              },
+              dateInput: {
+                borderColor: colors.primary,
+                borderRadius: 5,
+                marginLeft: 0
+              }
+              // ... You can check the source to find the other keys.
+            }}
+            onDateChange={(date) => { setTanggal({ ...tanggal, awal: date }) }}
+          />
+        </View>
+        <View style={{
+          flex: 1,
+          paddingLeft: 5,
+        }}>
+          <DatePicker
+            style={{ width: '100%' }}
+            date={tanggal.akhir}
+            mode="date"
+            placeholder="select date"
+            format="YYYY-MM-DD"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                position: 'absolute',
+                left: 0,
+                top: 4,
+                marginLeft: 0
+              },
+              dateInput: {
+                borderColor: colors.primary,
+                borderRadius: 5,
+                marginLeft: 0
+              }
+              // ... You can check the source to find the other keys.
+            }}
+            onDateChange={(date) => { setTanggal({ ...tanggal, akhir: date }) }}
+          />
+        </View>
+        <View style={{
+          marginLeft: 10,
+          backgroundColor: colors.primary,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: 5,
+        }}>
+          <TouchableOpacity onPress={__getTransactionFilter} style={{
+            flexDirection: 'row',
+            paddingHorizontal: 15,
+            alignItems: 'center'
 
-      <FlatList data={data} renderItem={__renderItem} />
+
+          }}>
+            <Icon type='ionicon' name='filter' size={15} color={colors.white} />
+            <Text style={{
+              left: 2,
+              fontFamily: fonts.secondary[600],
+              color: colors.white
+            }}>Filter</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+
+      <FlatList showsVerticalScrollIndicator={false} data={data} renderItem={__renderItem} />
 
 
 

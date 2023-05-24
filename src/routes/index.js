@@ -13,6 +13,8 @@ import {
   SDaftar,
   SAdd,
   SHutang,
+  SEdit,
+  EditDetail,
 } from '../pages';
 import { colors } from '../utils';
 
@@ -48,6 +50,32 @@ export default function Router() {
         options={{
           headerShown: true,
           headerTitle: 'Tambahkan Piutang',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+      <Stack.Screen
+        name="SEdit"
+        component={SEdit}
+        options={{
+          headerShown: true,
+          headerTitle: 'Edit Piutang',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+      <Stack.Screen
+        name="EditDetail"
+        component={EditDetail}
+        options={{
+          headerShown: true,
+          headerTitle: 'Edit Detail Piutang',
           headerStyle: {
             backgroundColor: colors.primary,
           },

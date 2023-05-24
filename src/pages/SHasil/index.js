@@ -4,6 +4,7 @@ import { colors, fonts, windowHeight, windowWidth } from '../../utils';
 import Pdf from 'react-native-pdf';
 import axios from 'axios';
 import { apiURL } from '../../utils/localStorage';
+import moment from 'moment';
 
 
 
@@ -30,7 +31,7 @@ export default function SHasil({ navigation, route }) {
                     fontFamily: fonts.secondary[400],
                     color: colors.white,
                     fontSize: 20
-                }}>{item.tanggal}</Text>
+                }}>{moment(item.tanggal).format('dddd, DD MMM YYYY')}</Text>
             </View>
 
             <View style={{
@@ -63,41 +64,60 @@ export default function SHasil({ navigation, route }) {
                 padding: 30,
                 color: colors.white,
             }}>{item.tipe}</Text>
-            <TouchableOpacity onPress={() => {
-                Alert.alert('Catatan Piutang', 'Apakah kamu yakin akan hapus ini ?', [
-                    {
-                        style: 'cancel',
-                        text: 'Batal'
-                    },
-                    {
-                        style: 'default',
-                        text: 'Hapus',
-                        onPress: () => {
 
-                            console.log(item)
-                            axios.post(apiURL + 'delete_detail.php', {
-                                id_bayar: item.id,
-                                kode: item.kode,
-                                total_bayar: item.total_bayar,
-                                jenis: item.jenis
-                            }).then(res => {
-                                console.log(res.data)
-                                navigation.goBack();
-                            })
-                        }
-                    }
-                ])
-            }} style={{
-                padding: 10,
-                backgroundColor: colors.danger
+
+            <View style={{
+                flexDirection: 'row'
             }}>
-                <Text style={{
-                    fontFamily: fonts.secondary[600],
-                    fontSize: windowWidth / 30,
-                    color: colors.white,
-                    textAlign: 'center'
-                }}>Hapus</Text>
-            </TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    Alert.alert('Catatan Piutang', 'Apakah kamu yakin akan hapus ini ?', [
+                        {
+                            style: 'cancel',
+                            text: 'Batal'
+                        },
+                        {
+                            style: 'default',
+                            text: 'Hapus',
+                            onPress: () => {
+
+                                console.log(item)
+                                axios.post(apiURL + 'delete_detail.php', {
+                                    id_bayar: item.id,
+                                    kode: item.kode,
+                                    total_bayar: item.total_bayar,
+                                    jenis: item.jenis
+                                }).then(res => {
+                                    console.log(res.data)
+                                    navigation.goBack();
+                                })
+                            }
+                        }
+                    ])
+                }} style={{
+                    padding: 10,
+                    flex: 1,
+                    backgroundColor: colors.danger
+                }}>
+                    <Text style={{
+                        fontFamily: fonts.secondary[600],
+                        fontSize: windowWidth / 30,
+                        color: colors.white,
+                        textAlign: 'center'
+                    }}>Hapus</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.replace('EditDetail', item)} style={{
+                    flex: 1,
+                    padding: 10,
+                    backgroundColor: colors.white
+                }}>
+                    <Text style={{
+                        fontFamily: fonts.secondary[600],
+                        fontSize: windowWidth / 30,
+                        color: colors.primary,
+                        textAlign: 'center'
+                    }}>Edit</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 

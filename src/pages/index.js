@@ -9,6 +9,9 @@ import SHasil from './SHasil';
 import SDaftar from './SDaftar';
 import SAdd from './SAdd';
 import SHutang from './SHutang';
+import SEdit from './SEdit';
+import EditDetail from './EditDetail';
+
 
 
 
@@ -34,5 +37,7 @@ export {
   SHasil,
   Register,
   SDaftar,
-  SAdd
+  SAdd,
+  SEdit,
+  EditDetail
 };

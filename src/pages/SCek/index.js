@@ -15,8 +15,10 @@ import 'intl';
 import 'intl/locale-data/jsonp/en';
 import ViewShot from "react-native-view-shot";
 import Share from 'react-native-share';
-
+import moment from 'moment';
+import 'moment/locale/id';
 export default function SCek({ navigation, route }) {
+    moment.locale('id')
     const item = route.params;
     const [data, setData] = useState([]);
     const [sisa, setSisa] = useState(0);
@@ -81,7 +83,7 @@ export default function SCek({ navigation, route }) {
                     <Text style={{
                         fontFamily: fonts.secondary[400],
                         fontSize: windowWidth / 35
-                    }}>{item.tanggal}</Text>
+                    }}>{moment(item.tanggal).format('dddd, DD MMM YYYY')}</Text>
                     <Text style={{
                         fontFamily: fonts.secondary[400],
                         fontSize: windowWidth / 40,
@@ -133,8 +135,23 @@ export default function SCek({ navigation, route }) {
                 <View style={{
                     flexDirection: 'row',
                     backgroundColor: colors.primary,
-                    justifyContent: 'flex-end'
+                    justifyContent: 'space-around'
                 }}>
+
+                    <TouchableOpacity onPress={() => navigation.navigate('SEdit', item)} style={{
+                        padding: 10,
+                        width: windowWidth / 3,
+                        backgroundColor: colors.white
+                    }}>
+                        <Text style={{
+                            fontFamily: fonts.secondary[600],
+                            fontSize: windowWidth / 30,
+                            color: colors.primary,
+                            textAlign: 'center',
+                        }}>Edit</Text>
+                    </TouchableOpacity>
+
+
                     <TouchableOpacity onPress={() => {
                         Alert.alert('Catatan Piutang', 'Apakah kamu yakin akan hapus ini ?', [
                             {
@@ -156,7 +173,7 @@ export default function SCek({ navigation, route }) {
                         ])
                     }} style={{
                         padding: 10,
-                        width: 100,
+                        width: windowWidth / 3,
                         backgroundColor: colors.danger
                     }}>
                         <Text style={{
@@ -192,7 +209,7 @@ export default function SCek({ navigation, route }) {
                     }} style={{
                         padding: 10,
                         backgroundColor: colors.success,
-                        width: 100,
+                        width: windowWidth / 3,
                     }}>
                         <Text style={{
                             fontFamily: fonts.secondary[600],
@@ -222,7 +239,7 @@ export default function SCek({ navigation, route }) {
                                 fontFamily: fonts.secondary[400],
                                 fontSize: windowWidth / 35,
                                 color: colors.white,
-                            }}>Tanggal Pinjam : {item.tanggal}</Text>
+                            }}>Tanggal Pinjam : {moment(item.tanggal).format('dddd, DD MMM YYYY')}</Text>
                         </View>
 
 
