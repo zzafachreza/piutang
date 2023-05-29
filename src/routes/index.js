@@ -15,6 +15,7 @@ import {
   SHutang,
   SEdit,
   EditDetail,
+  Mutasi,
 } from '../pages';
 import { colors } from '../utils';
 
@@ -44,12 +45,26 @@ export default function Router() {
           headerTintColor: '#fff',
         }}
       />
+
+
       <Stack.Screen
         name="SAdd"
         component={SAdd}
         options={{
           headerShown: true,
           headerTitle: 'Tambahkan Piutang',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+      <Stack.Screen
+        name="Mutasi"
+        component={Mutasi}
+        options={{
+          headerShown: true,
+          headerTitle: 'Laporan Mutasi',
           headerStyle: {
             backgroundColor: colors.primary,
           },

@@ -409,9 +409,20 @@ export default function Home({ navigation }) {
       </View>
 
       <View style={{
-        padding: 10,
+        flexDirection: 'row'
       }}>
-        <MyButton onPress={() => navigation.navigate('SAdd')} title="Tambah Baru" warna={colors.primary} />
+        <View style={{
+          padding: 10,
+          flex: 1,
+        }}>
+          <MyButton onPress={() => navigation.navigate('Mutasi')} title="Laporan Mutasi" warna={colors.success} />
+        </View>
+        <View style={{
+          padding: 10,
+          flex: 1,
+        }}>
+          <MyButton onPress={() => navigation.navigate('SAdd')} title="Tambah Baru" warna={colors.primary} />
+        </View>
       </View>
 
     </SafeAreaView >

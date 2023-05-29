@@ -11,6 +11,7 @@ import SAdd from './SAdd';
 import SHutang from './SHutang';
 import SEdit from './SEdit';
 import EditDetail from './EditDetail';
+import Mutasi from './Mutasi';
 
 
 
@@ -39,5 +40,6 @@ export {
   SDaftar,
   SAdd,
   SEdit,
-  EditDetail
+  EditDetail,
+  Mutasi
 };
