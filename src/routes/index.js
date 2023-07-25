@@ -16,6 +16,8 @@ import {
   SEdit,
   EditDetail,
   Mutasi,
+  Saldo,
+  SaldoAdd,
 } from '../pages';
 import { colors } from '../utils';
 
@@ -192,6 +194,33 @@ export default function Router() {
         options={{
           headerShown: false,
           headerTitle: 'Hasil Analisa',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+      <Stack.Screen
+        name="Saldo"
+        component={Saldo}
+        options={{
+          headerShown: false,
+          headerTitle: 'Saldo',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+
+      <Stack.Screen
+        name="SaldoAdd"
+        component={SaldoAdd}
+        options={{
+          headerShown: true,
+          headerTitle: 'Tambah Saldo',
           headerStyle: {
             backgroundColor: colors.primary,
           },

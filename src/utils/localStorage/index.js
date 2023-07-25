@@ -22,4 +22,5 @@ export const getData = async key => {
 
 export const apiURL = 'https://piutang.zavalabs.com/api/';
 export const wenURL = apiURL.replace("api/", "");
+export const API_URL = apiURL.replace("api/", "myapi/");
 

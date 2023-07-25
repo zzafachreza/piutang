@@ -350,9 +350,7 @@ export default function Home({ navigation }) {
 
 
       <View style={{
-        borderTopWidth: 1,
-        borderTopColor: colors.border,
-        backgroundColor: colors.primary,
+        backgroundColor: colors.white,
         padding: 10,
         flexDirection: 'row'
       }} >
@@ -364,12 +362,12 @@ export default function Home({ navigation }) {
           <Text style={{
             fontFamily: fonts.secondary[400],
             fontSize: windowWidth / 30,
-            color: colors.secondary
+            color: colors.primary
           }}>Total Hutang</Text>
           <Text style={{
             fontFamily: fonts.secondary[600],
             fontSize: windowWidth / 30,
-            color: colors.white
+            color: colors.black
           }}>Rp {new Intl.NumberFormat().format(total.total_hutang)}</Text>
         </View>
 
@@ -381,12 +379,12 @@ export default function Home({ navigation }) {
           <Text style={{
             fontFamily: fonts.secondary[400],
             fontSize: windowWidth / 30,
-            color: colors.secondary
+            color: colors.primary
           }}>Total Bayar</Text>
           <Text style={{
             fontFamily: fonts.secondary[600],
             fontSize: windowWidth / 30,
-            color: colors.white
+            color: colors.black
           }}>Rp {new Intl.NumberFormat().format(total.total_bayar)}</Text>
         </View>
 
@@ -398,17 +396,17 @@ export default function Home({ navigation }) {
           <Text style={{
             fontFamily: fonts.secondary[400],
             fontSize: windowWidth / 30,
-            color: colors.secondary
+            color: colors.primary
           }}>Total Sisa Piutang</Text>
           <Text style={{
             fontFamily: fonts.secondary[600],
             fontSize: windowWidth / 30,
-            color: colors.white
+            color: colors.black
           }}>Rp {new Intl.NumberFormat().format(total.total_sisa)}</Text>
         </View>
       </View>
 
-      <View style={{
+      {/* <View style={{
         flexDirection: 'row'
       }}>
         <View style={{
@@ -423,6 +421,51 @@ export default function Home({ navigation }) {
         }}>
           <MyButton onPress={() => navigation.navigate('SAdd')} title="Tambah Baru" warna={colors.primary} />
         </View>
+      </View> */}
+
+      <View style={{
+        flexDirection: 'row',
+        backgroundColor: colors.primary,
+        justifyContent: 'space-around',
+        padding: 5,
+        // height: 80
+      }}>
+        <TouchableOpacity onPress={() => navigation.navigate('Mutasi')} style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: 5,
+        }}>
+          <Icon type='ionicon' name='file-tray-stacked-outline' color={colors.white} />
+          <Text style={{
+            fontFamily: fonts.secondary[600],
+            fontSize: 14,
+            color: colors.white
+          }}>Laporan</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('SAdd')} style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: 5,
+        }}>
+          <Icon type='ionicon' name='duplicate-outline' color={colors.white} />
+          <Text style={{
+            fontFamily: fonts.secondary[600],
+            fontSize: 14,
+            color: colors.white
+          }}>Tambah Baru</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Saldo')} style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: 5,
+        }}>
+          <Icon type='ionicon' name='receipt-outline' color={colors.white} />
+          <Text style={{
+            fontFamily: fonts.secondary[600],
+            fontSize: 14,
+            color: colors.white
+          }}>Saldo</Text>
+        </TouchableOpacity>
       </View>
 
     </SafeAreaView >

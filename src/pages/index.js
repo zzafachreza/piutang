@@ -12,6 +12,8 @@ import SHutang from './SHutang';
 import SEdit from './SEdit';
 import EditDetail from './EditDetail';
 import Mutasi from './Mutasi';
+import Saldo from './Saldo';
+import SaldoAdd from './SaldoAdd';
 
 
 
@@ -41,5 +43,7 @@ export {
   SAdd,
   SEdit,
   EditDetail,
-  Mutasi
+  Mutasi,
+  Saldo,
+  SaldoAdd
 };
