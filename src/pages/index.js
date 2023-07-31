@@ -14,6 +14,7 @@ import EditDetail from './EditDetail';
 import Mutasi from './Mutasi';
 import Saldo from './Saldo';
 import SaldoAdd from './SaldoAdd';
+import SaldoDetail from './SaldoDetail';
 
 
 
@@ -45,5 +46,6 @@ export {
   EditDetail,
   Mutasi,
   Saldo,
-  SaldoAdd
+  SaldoAdd,
+  SaldoDetail
 };

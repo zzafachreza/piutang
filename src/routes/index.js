@@ -18,6 +18,7 @@ import {
   Mutasi,
   Saldo,
   SaldoAdd,
+  SaldoDetail,
 } from '../pages';
 import { colors } from '../utils';
 
@@ -41,6 +42,19 @@ export default function Router() {
         options={{
           headerShown: false,
           // headerTitle: 'Detail',
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: '#fff',
+        }}
+      />
+
+      <Stack.Screen
+        name="SaldoDetail"
+        component={SaldoDetail}
+        options={{
+          headerShown: false,
+          headerTitle: 'Saldo',
           headerStyle: {
             backgroundColor: colors.primary,
           },

@@ -242,6 +242,20 @@ export default function SCek({ navigation, route }) {
                             }}>Tanggal Pinjam : {moment(item.tanggal).format('dddd, DD MMM YYYY')}</Text>
                         </View>
 
+                        <TouchableOpacity onPress={() => navigation.navigate('SaldoDetail', {
+                            kode: item.kode
+                        })} style={{
+                            backgroundColor: colors.white,
+                            paddingHorizontal: 10,
+                            paddingVertical: 5,
+                            borderRadius: 10,
+                        }}>
+                            <Text style={{
+                                fontFamily: fonts.secondary[600],
+                                color: colors.primary
+                            }}>SALDO</Text>
+                        </TouchableOpacity>
+
 
                     </View>
 

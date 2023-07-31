@@ -32,7 +32,7 @@ export default function EditDetail({ navigation, route }) {
         setTimeout(() => {
             axios.post(apiURL + 'edit2.php', kirim).then(res => {
                 console.log(res.data);
-                setLoading(false);
+                // setLoading(false);
                 Alert.alert('Catatan Piutang', 'Data berhasil disimpan !')
                 console.log(kirim);
                 navigation.goBack();

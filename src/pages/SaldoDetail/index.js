@@ -21,14 +21,14 @@ import XLSX from 'xlsx';
 import Share from 'react-native-share';
 var RNFS = require('react-native-fs');
 
-export default function Saldo({ navigation }) {
+export default function SaldoDetail({ navigation, route }) {
 
     const [user, setUser] = useState({});
     const [data, setData] = useState([]);
     const isFocused = useIsFocused();
     useEffect(() => {
         if (isFocused) {
-            __getTransactionFilter();
+            __getTransaction();
         }
 
     }, [isFocused]);
@@ -41,7 +41,7 @@ export default function Saldo({ navigation }) {
     const __getTransaction = () => {
         getData('user').then(uu => {
             axios.post(API_URL + 'saldo', {
-                fid_user: uu.id
+                kode: route.params.kode,
             }).then(res => {
                 console.log(res.data);
                 setData(res.data);
@@ -238,91 +238,7 @@ export default function Saldo({ navigation }) {
             backgroundColor: colors.white,
         }}>
 
-            <View style={{
-                flexDirection: 'row',
-                margin: 10
-            }}>
-                <View style={{
-                    flex: 1,
-                    paddingRight: 5,
-                }}>
-                    <DatePicker
-                        style={{ width: '100%', }}
-                        date={tanggal.awal}
-                        mode="date"
-                        placeholder="select date"
-                        format="YYYY-MM-DD"
-                        confirmBtnText="Confirm"
-                        cancelBtnText="Cancel"
-                        customStyles={{
-                            dateIcon: {
-                                position: 'absolute',
-                                left: 0,
-                                top: 4,
-                                marginLeft: 0
-                            },
-                            dateInput: {
-                                borderColor: colors.primary,
-                                borderRadius: 5,
-                                marginLeft: 0
-                            }
-                            // ... You can check the source to find the other keys.
-                        }}
-                        onDateChange={(date) => { setTanggal({ ...tanggal, awal: date }) }}
-                    />
-                </View>
-                <View style={{
-                    flex: 1,
-                    paddingLeft: 5,
-                }}>
-                    <DatePicker
-                        style={{ width: '100%' }}
-                        date={tanggal.akhir}
-                        mode="date"
-                        placeholder="select date"
-                        format="YYYY-MM-DD"
-                        confirmBtnText="Confirm"
-                        cancelBtnText="Cancel"
-                        customStyles={{
-                            dateIcon: {
-                                position: 'absolute',
-                                left: 0,
-                                top: 4,
-                                marginLeft: 0
-                            },
-                            dateInput: {
-                                borderColor: colors.primary,
-                                borderRadius: 5,
-                                marginLeft: 0
-                            }
-                            // ... You can check the source to find the other keys.
-                        }}
-                        onDateChange={(date) => { setTanggal({ ...tanggal, akhir: date }) }}
-                    />
-                </View>
-                <View style={{
-                    marginLeft: 10,
-                    backgroundColor: colors.primary,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: 5,
-                }}>
-                    <TouchableOpacity onPress={__getTransactionFilter} style={{
-                        flexDirection: 'row',
-                        paddingHorizontal: 15,
-                        alignItems: 'center'
 
-
-                    }}>
-                        <Icon type='ionicon' name='filter' size={15} color={colors.white} />
-                        <Text style={{
-                            left: 2,
-                            fontFamily: fonts.secondary[600],
-                            color: colors.white
-                        }}>Filter</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
 
 
             <View style={{
@@ -334,7 +250,7 @@ export default function Saldo({ navigation }) {
                     padding: 10,
                     borderBottomWidth: 1,
                     borderBottomColor: colors.white,
-                    backgroundColor: '#A43309'
+                    backgroundColor: colors.primary
                 }}>
                     <View style={{
                         flex: 1.5,
