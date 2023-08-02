@@ -63,14 +63,17 @@ export default function SaldoDetail({ navigation, route }) {
         const THEFILE = RNFS.ExternalStorageDirectoryPath + '/saldo_' + moment().format('YYMMDDSHHmmSS') + '.xlsx';
         // Write generated excel to Storage
         await RNFS.writeFile(THEFILE, wbout, 'ascii').then((r) => {
-            console.log('Success', THEFILE);
+
+
             RNFetchBlob.android.addCompleteDownload({
                 title: 'saldo_' + moment().format('YYMMDDSHHmmSS') + '.xlsx',
                 description: 'Download berhsasil',
                 mime: 'xlxs',
                 path: THEFILE,
                 showNotification: true,
-            })
+            });
+
+            Alert.alert('Catatan Piutang', `${THEFILE} berhasil di download . . .`)
         }).catch((e) => {
             console.log('Error', e);
             console.log('file', wbout);
