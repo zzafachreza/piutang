@@ -60,7 +60,7 @@ export default function SaldoDetail({ navigation, route }) {
         XLSX.utils.book_append_sheet(wb, ws, "Users")
         const wbout = XLSX.write(wb, { type: 'binary', bookType: "xlsx" });
 
-        const THEFILE = RNFS.ExternalStorageDirectoryPath + '/saldo_' + moment().format('YYMMDDSHHmmSS') + '.xlsx';
+        const THEFILE = RNFS.DownloadDirectoryPath + '/saldo_' + moment().format('YYMMDDSHHmmSS') + '.xlsx';
         // Write generated excel to Storage
         await RNFS.writeFile(THEFILE, wbout, 'ascii').then((r) => {
 
