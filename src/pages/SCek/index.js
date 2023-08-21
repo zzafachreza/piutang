@@ -37,7 +37,6 @@ export default function SCek({ navigation, route }) {
     useEffect(() => {
         if (isFocused) {
             __getTransaction();
-            __getTransactionHeader();
         }
 
 
@@ -48,18 +47,36 @@ export default function SCek({ navigation, route }) {
         axios.post(apiURL + 'data2.php', {
             kode: route.params.kode
         }).then(rz => {
+            let totalHutang = 0;
+            let TotalBayar = 0;
+
+            rz.data.map(i => {
+                if (i.jenis == 'DB') {
+                    totalHutang += parseFloat(i.total_bayar)
+                } else {
+                    TotalBayar += parseFloat(i.total_bayar)
+                }
+
+            })
+            console.log('hutang', totalHutang)
+            console.log('bayar', TotalBayar)
             setData(rz.data)
+            setDataH({
+                total: totalHutang,
+                bayar: TotalBayar,
+                sisa: totalHutang - TotalBayar,
+            })
         })
     }
 
-    const __getTransactionHeader = () => {
-        axios.post(apiURL + 'data_piutang.php', {
-            kode: route.params.kode
-        }).then(rz => {
-            console.log(rz.data)
-            setDataH(rz.data)
-        })
-    }
+    // const __getTransactionHeader = () => {
+    //     axios.post(apiURL + 'data_piutang.php', {
+    //         kode: route.params.kode
+    //     }).then(rz => {
+    //         console.log(rz.data)
+
+    //     })
+    // }
 
     const __renderItem = ({ item }) => {
         return (
